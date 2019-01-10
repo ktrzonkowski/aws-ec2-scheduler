@@ -19,7 +19,7 @@ def aws_session(role_arn=None, session_name='lambda_session'):
         * Document all possible exceptions
     """
     
-    if role_arn:
+    if role_arn is not None:
         client = boto3.client('sts')
         response = client.assume_role(RoleArn=role_arn, RoleSessionName=session_name)
         session = boto3.Session(
