@@ -99,10 +99,12 @@ def run(optin=True, action='start', region='us-east-1', role_arn=None, session_n
                     hasTag = False
                 
                     # Check the instance's tags for a Schedule tag
-                    for t in i['Tags']:
-                        if t['Key'] == "Schedule":
-                            hasTag = True
-                            break
+                    # ... but don't assume it has a 'Tags' attribute, because some don't
+                    if 'Tags' in i:
+                        for t in i['Tags']:
+                            if t['Key'] == "Schedule":
+                                hasTag = True
+                                break
     
                     # If we are Opt-In and have the Schedule tag...
                     # OR we are Opt-Out and DON'T have the Schedule tag...
